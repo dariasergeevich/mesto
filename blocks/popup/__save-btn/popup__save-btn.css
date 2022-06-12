@@ -1,0 +1,21 @@
+.popup__save-btn {
+  width: 358px;
+  height: 50px;
+  background-color: black;
+  color: white;
+  align-self: center;
+  cursor: pointer;
+  }
+
+
+  @media (max-width: 768px) {
+    .popup__save-btn {
+      width: 238px;
+      margin: auto;
+      align-self: none;
+    }
+  }
+
+  .popup__save-btn:hover {
+    opacity: 0.8;
+  }

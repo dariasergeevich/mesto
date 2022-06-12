@@ -1,0 +1,16 @@
+.header {
+    padding-top: 45px;
+    display: flex;
+    max-width: 880px;
+    height: 74px;
+    margin: auto;
+    
+}
+
+  @media (max-width: 768px) {
+    .header {
+      max-width: 100%;
+      height: 56px;
+      padding-top: 28px;
+    }
+  }

@@ -1,0 +1,13 @@
+.popup__name {
+ border: none;
+ border-bottom: 1px solid gray;
+ width: 358px;
+ align-self: center;
+ margin-bottom: 30px;   
+  }
+
+  @media (max-width: 768px) {
+    .popup__name {
+      width: 238px;
+    }
+  }

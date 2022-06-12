@@ -1,0 +1,13 @@
+.element__flex {
+  display: flex;
+  width: 282px;
+  background-color: white;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 79px;
+  border-radius: 0 0 20px 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  }
