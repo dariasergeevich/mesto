@@ -12,4 +12,4 @@
 * JavaScript
 * Работа с DOM
 
-* [Ссылка на проект](https://dariasergeevich.github.io/russian-travel/)
+* [Ссылка на проект](https://dariasergeevich.github.io/mesto/)
