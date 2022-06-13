@@ -3,20 +3,23 @@
   height: 32px;
   background-image: url(../../../images/close_icon.png);
   background-size: cover;
-  padding-top: 0;
-  padding-bottom: 0;
+  left: 448px;
+  bottom: 338px;
   border: none;
   align-self: flex-end;
   margin-bottom: 8px;
   cursor: pointer;
   background-color: black;
+  position: absolute;
   }
 
   @media (max-width: 768px) {
     .popup__close-btn {
-      margin-bottom: 16px;
       width: 20px;
       height: 20px;
+      bottom: 338px;
+      left: 262px;
+      right: 0;
     }
   }
 

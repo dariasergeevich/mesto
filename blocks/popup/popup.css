@@ -2,30 +2,13 @@
   z-index: 0;
  display: none;
  flex-direction: column;
- width: 470px;
- height: 370px;
- position: absolute;
+ height: 100%;
+ width: 100%;
+ position: fixed;
  margin: auto;
  bottom: 0;
  right: 0;
  left: 0;
  top: 0;
-  }
-
-  @media (max-width: 768px) {
-    .popup {
-      width: 282px;
-  height: 358px;
-    }
-  }
-
-  .popup::after {
-    content: "";
-    position: fixed;
-    bottom: 0;
-  left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0 0 0 / 0.7);
-    z-index: -1;
+ background-color: rgba(0 0 0 / 0.7);
   }
