@@ -3,13 +3,12 @@
   height: 32px;
   background-image: url(../../../images/close_icon.png);
   background-size: cover;
-  left: 448px;
-  bottom: 338px;
+  left: 438px;
+  bottom: 328px;
   border: none;
   align-self: flex-end;
-  margin-bottom: 8px;
   cursor: pointer;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0);
   position: absolute;
   }
 
@@ -17,12 +16,11 @@
     .popup__close-btn {
       width: 20px;
       height: 20px;
-      bottom: 338px;
       left: 262px;
       right: 0;
     }
   }
 
   .popup__close-btn:hover {
-   opacity: 0.8;
+   opacity: 0.6;
   }

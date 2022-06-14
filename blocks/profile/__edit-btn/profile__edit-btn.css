@@ -8,6 +8,7 @@
   border: none;
   cursor: pointer;
   background-color: black;
+  align-self: center;
   }
 
   @media (max-width: 768px) {
@@ -18,5 +19,5 @@
   }
 
   .profile__edit-btn:hover {
-    opacity: 0.8;
+    opacity: 0.6;
   }

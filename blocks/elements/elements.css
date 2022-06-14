@@ -10,7 +10,7 @@
   margin: auto;
   }
 
-  @media (min-width: 551px) and (max-width: 1024px) {
+  @media (max-width: 1024px) {
     .elements {
       max-width: 581px;
       grid-template-columns: repeat(2, 1fr);

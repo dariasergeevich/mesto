@@ -5,6 +5,7 @@
   color: white;
   align-self: center;
   cursor: pointer;
+  margin-bottom: 37px;
   }
 
 
@@ -12,9 +13,10 @@
     .popup__save-btn {
       width: 238px;
       margin: auto;
+      margin-bottom: 25px;
     }
   }
 
   .popup__save-btn:hover {
-    opacity: 0.8;
+    opacity: 0.6;
   }

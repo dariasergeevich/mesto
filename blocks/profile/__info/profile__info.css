@@ -8,13 +8,14 @@
   row-gap: 16px;
   color: white;
   margin: 0;
+  align-self: center;
   }
 
   @media (max-width: 768px) {
     .profile__info {
       max-width: 100%;
       padding-top: 26px;
-      grid-template-columns: 195px 24px;
+      grid-template-columns: 170px 24px;
   grid-template-rows: 26px 14px;
   column-gap: 10px;
   row-gap: 14px;

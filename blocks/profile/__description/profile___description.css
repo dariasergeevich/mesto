@@ -2,6 +2,10 @@
   font-size: 18px;
   color: white;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; 
+  max-width: 330px;
   }
 
   @media (max-width: 768px) {
