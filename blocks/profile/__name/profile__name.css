@@ -9,7 +9,7 @@
 white-space: nowrap;
 overflow: hidden;
 max-width: 330px;
-align-self: end;
+align-self: start;
   }
 
   @media (max-width: 768px) {
