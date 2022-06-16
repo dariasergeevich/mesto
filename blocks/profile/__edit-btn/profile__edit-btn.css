@@ -8,7 +8,7 @@
   border: none;
   cursor: pointer;
   background-color: black;
-  align-self: center;
+  align-self: end;
   }
 
   @media (max-width: 768px) {
