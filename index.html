@@ -32,7 +32,8 @@
 
 
         <article class="element">
-          <img class="element__image" src="./images/dombay.png" alt="домбай">
+          <button class="element__delete-btn"></button>
+          <button class="element__image-btn"><img class="element__image" src="./images/dombay.png" alt="домбай"></button>
           <div class="element__flex">
             <h2 class="element__title">Домбай</h2>
             <button class="element__like-btn" type="button"></button>
@@ -40,7 +41,8 @@
         </article>
 
         <article class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg" alt="карачаевск">
+          <button class="element__delete-btn"></button>
+          <button class="element__image-btn"><img class="element__image" src="./images/karachaevsk.jpg" alt="карачаевск"></button>
           <div class="element__flex">
             <h2 class="element__title">Карачаевск</h2>
             <button class="element__like-btn" type="button"></button>
@@ -48,7 +50,8 @@
         </article>
 
         <article class="element">
-          <img class="element__image" src="./images/elbrus.png" alt="эльбрус">
+          <button class="element__delete-btn"></button>
+          <button class="element__image-btn"><img class="element__image" src="./images/elbrus.png" alt="эльбрус"></button>
           <div class="element__flex">
             <h2 class="element__title">Гора Эльбрус</h2>
             <button class="element__like-btn" type="button"></button>
@@ -56,7 +59,8 @@
         </article>
 
         <article class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg" alt="карачаевск">
+          <button class="element__delete-btn"></button>
+          <button class="element__image-btn"><img class="element__image" src="./images/karachaevsk.jpg" alt="карачаевск"></button>
           <div class="element__flex">
             <h2 class="element__title">Карачаевск</h2>
             <button class="element__like-btn" type="button"></button>
@@ -64,7 +68,8 @@
         </article>
 
         <article class="element">
-          <img class="element__image" src="./images/elbrus.png" alt="эльбрус">
+          <button class="element__delete-btn"></button>
+          <button class="element__image-btn"><img class="element__image" src="./images/elbrus.png" alt="эльбрус"></button>
           <div class="element__flex">
             <h2 class="element__title">Гора Эльбрус</h2>
             <button class="element__like-btn" type="button"></button>
@@ -72,7 +77,8 @@
         </article>
 
         <article class="element">
-          <img class="element__image" src="./images/dombay.png" alt="домбай">
+          <button class="element__delete-btn"></button>
+          <button class="element__image-btn"><img class="element__image" src="./images/dombay.png" alt="домбай"></button>
           <div class="element__flex">
             <h2 class="element__title">Домбай</h2>
             <button class="element__like-btn" type="button"></button>
@@ -94,7 +100,39 @@
         </form>
       </div>
     </div>
+
+    <div class="popup" id="popup_add">
+      <div class="popup__container" id="add_container">
+        <button class="popup__close-btn" id='popup_add_close' type="button"></button>
+        <form class="popup__form" name="infoForm" method="post">
+          <h2 class="popup__title">Новое место</h2>
+          <input class="popup__input" id="popupTitle" name="title" type="text" placeholder="Название">
+          <input class="popup__input" id="popupLink" name="link" type="text" placeholder="Ссылка на картинку">
+          <button class="popup__save-btn" id='popup_add_save' type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+
+  <div class="popup-image">
+    <div class="popup-image__container">
+      <button class="popup-image__close-btn" id='popup_add_close' type="button"></button>
+      <img class="popup-image__img">
+      <p class="popup-image__title"></p>
   </div>
+</div>
+</div>
+
+  <template id="element-template">
+    <article class="element">
+      <button class="element__delete-btn"></button>
+      <button class="element__image-btn"><img class="element__image"></button>
+      <div class="element__flex">
+        <h2 class="element__title"></h2>
+        <button class="element__like-btn" type="button"></button>
+      </div>
+    </article>
+  </template>
+
   <script src="./scripts/index.js"></script>
 </body>
 
