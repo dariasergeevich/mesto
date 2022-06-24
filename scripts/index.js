@@ -144,11 +144,6 @@ newPopupTitle.textContent = name;
   });
 
 
- //реализация кнопки лайка (старые карточки)
- likeButton.forEach(b=>b.addEventListener('click', function(evt) {
-  evt.target.classList.toggle('element__like-btn_active');
-}));
-
 //закрытие попапа с увеличенной картинкой
 let closeButtonImg = document.querySelector('.popup-image__close-btn');
  closeButtonImg.addEventListener('click', function() { 
