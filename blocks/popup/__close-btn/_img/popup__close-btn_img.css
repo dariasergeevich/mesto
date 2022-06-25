@@ -1,0 +1,4 @@
+.popup__close-btn_img {
+  left: calc(100% + 8px);
+  bottom: calc(100% + 8px);
+  }

@@ -29,69 +29,14 @@
         <button class="profile__add-btn" type="button"></button>
       </section>
       <section class="elements">
-
-
-        <article class="element">
-          <button class="element__delete-btn"></button>
-          <button class="element__image-btn"><img class="element__image" src="./images/dombay.png" alt="домбай"></button>
-          <div class="element__flex">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__like-btn" type="button"></button>
-          </div>
-        </article>
-
-        <article class="element">
-          <button class="element__delete-btn"></button>
-          <button class="element__image-btn"><img class="element__image" src="./images/karachaevsk.jpg" alt="карачаевск"></button>
-          <div class="element__flex">
-            <h2 class="element__title">Карачаевск</h2>
-            <button class="element__like-btn" type="button"></button>
-          </div>
-        </article>
-
-        <article class="element">
-          <button class="element__delete-btn"></button>
-          <button class="element__image-btn"><img class="element__image" src="./images/elbrus.png" alt="эльбрус"></button>
-          <div class="element__flex">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__like-btn" type="button"></button>
-          </div>
-        </article>
-
-        <article class="element">
-          <button class="element__delete-btn"></button>
-          <button class="element__image-btn"><img class="element__image" src="./images/karachaevsk.jpg" alt="карачаевск"></button>
-          <div class="element__flex">
-            <h2 class="element__title">Карачаевск</h2>
-            <button class="element__like-btn" type="button"></button>
-          </div>
-        </article>
-
-        <article class="element">
-          <button class="element__delete-btn"></button>
-          <button class="element__image-btn"><img class="element__image" src="./images/elbrus.png" alt="эльбрус"></button>
-          <div class="element__flex">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__like-btn" type="button"></button>
-          </div>
-        </article>
-
-        <article class="element">
-          <button class="element__delete-btn"></button>
-          <button class="element__image-btn"><img class="element__image" src="./images/dombay.png" alt="домбай"></button>
-          <div class="element__flex">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__like-btn" type="button"></button>
-          </div>
-        </article>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__title">&copy; 2022 Mesto Russia</p>
     </footer>
-    <div class="popup">
-      <div class="popup__container">
-        <button class="popup__close-btn" type="button"></button>
+    <div class="popup" id="popup_info">
+      <div class="popup__container" id="info_container">
+        <button class="popup__close-btn" type="button" id="popup_info_close"></button>
         <form class="popup__form" name="infoForm" method="post">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input class="popup__input" id="popupName" name="name" type="text" placeholder="Имя">
@@ -113,11 +58,11 @@
       </div>
     </div>
 
-  <div class="popup-image">
-    <div class="popup-image__container">
-      <button class="popup-image__close-btn" type="button"></button>
-      <img class="popup-image__img">
-      <p class="popup-image__title"></p>
+  <div class="popup popup_image" id="popup_image">
+    <div class="popup__container popup__container_img">
+      <button class="popup__close-btn popup__close-btn_img" type="button"></button>
+      <img class="popup__img">
+      <p class="popup__title popup__title_img"></p>
   </div>
 </div>
 </div>
