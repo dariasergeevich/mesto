@@ -11,8 +11,7 @@
 
   @media (max-width: 768px) {
     .popup__title {
-     text-align: center;
-     padding-left: 0px;
+     padding-left: 22px;
      padding-bottom: 75px;
      padding-top: 25px;
      font-size: 18px;
