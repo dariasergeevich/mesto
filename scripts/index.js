@@ -35,7 +35,7 @@ function fillPopupInfoInput() {
   jobInput.value = profileInfo.textContent;
 }
 
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы, логика отправки будет определена позже
 
   profileName.textContent = `${nameInput.value}`;
@@ -43,11 +43,10 @@ function handleFormSubmit(evt) {
   closePopup(popupInfo);
 }
 
-fillPopupInfoInput();
 //открытие и закрытие попапа редактирования информации, отправка данных полей ввода
-buttonEdit.addEventListener('click', function() {openPopup(popupInfo)});
+buttonEdit.addEventListener('click', function() {fillPopupInfoInput(); openPopup(popupInfo)});
 buttonClosePopupInfo.addEventListener('click', function() {closePopup(popupInfo)});
-formElementPopupInfo.addEventListener('submit', handleFormSubmit);
+formElementPopupInfo.addEventListener('submit', handleProfileFormSubmit);
 
 //открытие и закрытие попапа для добавления карточки
 
@@ -98,20 +97,19 @@ const createCard = (image, name) => {
     evt.target.classList.toggle('element__like-btn_active');
   });
 
-  //удаление карточек
+   //удаление карточек
   const newButtonDelete = newCard.querySelector('.element__delete-btn');
   newButtonDelete.addEventListener('click', function () {
-    newCard.classList.add('element_disabled');
+    newCard.remove();
   });
 
   //открытие попапа с увеличенной картинкой
-  const newButtonImage = newCard.querySelectorAll('.element__image');
-  newButtonImage.forEach(b => b.addEventListener('click', function () {
+  newCardImage.addEventListener('click', function () {
     newPopupImagePic.setAttribute('src', image);
     newPopupImagePic.setAttribute('alt', name);
     newPopupTitle.textContent = name;
     openPopup(popupImage);
-  }));
+  });
 
   return newCard;
 };
