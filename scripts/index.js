@@ -19,11 +19,19 @@ const cardTemplate = document.querySelector('#element-template');
 const newPopupImagePic = document.querySelector('.popup__img');
 const newPopupTitle = document.querySelector('.popup__title_img');
 const buttonCloseImg = document.querySelector('.popup__close-btn_img');
-const popup = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll('.popup');
 
 //универсальные функции открытия и закрытия попапов
 function openPopup (popup) {
   popup.classList.add('popup_opend');
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape' && popup.classList.contains('popup_opend')) {
+      closePopup(popup);
+    }
+  }); 
+  const buttonElement = popup.querySelector('.popup__save-btn');
+  buttonElement.classList.add('popup__save-btn_disabled'); //то сделать кнопку неактивной
+  buttonElement.setAttribute('disabled', '');
 };
 
 function closePopup(popup) {
@@ -41,24 +49,15 @@ function fillPopupInfoInput() {
 function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы, логика отправки будет определена позже
 
-  profileName.textContent = `${nameInput.value}`;
-  profileInfo.textContent = `${jobInput.value}`;
+  profileName.textContent = nameInput.value;
+  profileInfo.textContent = jobInput.value;
   closePopup(popupInfo);
 }
-
-//функция закрытия на enter (обработчик на всем документе)
-document.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter') {
-    closePopup(popupInfo);
-    closePopup(popupAdd);
-    closePopup(popupImage);
-  }
-}); 
 
 
 //закрытие кликом на оверлей
 
-popup.forEach(function (element) {
+popups.forEach(function (element) {
   element.addEventListener('click', function(evt) {
     closePopup(evt.target);
   });
@@ -149,7 +148,6 @@ const handleClick = (evt) => {
   titleInput.value = '';
   closePopup(popupAdd);
 }
-
 popupAddForm.addEventListener('submit', handleClick);
 
 //перебор с функцией добавления карточек из массива на страницу

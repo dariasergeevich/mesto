@@ -74,10 +74,16 @@ const object = {
 //перебор всех форм на странице и активизация функций
   const enableValidation = ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}) => {
   const formList = Array.from(document.querySelectorAll(formSelector)); 
+
   formList.forEach((formElement) => {
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
-  });
+
+    const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+    const buttonElement = formElement.querySelector('.popup__save-btn');
+    toggleButtonState(inputList, buttonElement, {inactiveButtonClass});
+  }
+  );
 
     setEventListeners(formElement, {inputSelector, inputErrorClass, errorClass, inactiveButtonClass});
 }); 
