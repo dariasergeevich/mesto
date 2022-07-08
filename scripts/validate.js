@@ -78,10 +78,6 @@ const object = {
   formList.forEach((formElement) => {
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
-    const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-    const buttonElement = formElement.querySelector('.popup__save-btn');
-    toggleButtonState(inputList, buttonElement, {inactiveButtonClass});
   }
   );
 
