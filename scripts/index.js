@@ -19,6 +19,7 @@ const cardTemplate = document.querySelector('#element-template');
 const newPopupImagePic = document.querySelector('.popup__img');
 const newPopupTitle = document.querySelector('.popup__title_img');
 const buttonCloseImg = document.querySelector('.popup__close-btn_img');
+const popup = document.querySelectorAll('.popup');
 
 //универсальные функции открытия и закрытия попапов
 function openPopup (popup) {
@@ -28,6 +29,8 @@ function openPopup (popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opend');
 };
+
+
 
 //функция автозаполнения полей формы
 function fillPopupInfoInput() {
@@ -42,6 +45,25 @@ function handleProfileFormSubmit(evt) {
   profileInfo.textContent = `${jobInput.value}`;
   closePopup(popupInfo);
 }
+
+//функция закрытия на enter (обработчик на всем документе)
+document.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    closePopup(popupInfo);
+    closePopup(popupAdd);
+    closePopup(popupImage);
+  }
+}); 
+
+
+//закрытие кликом на оверлей
+
+popup.forEach(function (element) {
+  element.addEventListener('click', function(evt) {
+    closePopup(evt.target);
+  });
+});
+
 
 //открытие и закрытие попапа редактирования информации, отправка данных полей ввода
 buttonEdit.addEventListener('click', function() {fillPopupInfoInput(); openPopup(popupInfo)});
@@ -92,9 +114,10 @@ const createCard = (image, name) => {
   newCard.querySelector('.element__title').textContent = name;
 
   //функция лайка
-  const newButtonLike = newCard.querySelector('.element__like-btn');
-  newButtonLike.addEventListener('click', function (evt) {
+  newCard.addEventListener('click', function (evt) {
+    if(evt.target.classList.contains('element__like-btn')) {
     evt.target.classList.toggle('element__like-btn_active');
+    }
   });
 
    //удаление карточек
