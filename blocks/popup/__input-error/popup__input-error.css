@@ -7,7 +7,7 @@
  margin-bottom: 31px;
 max-width: 358px;
 position: absolute;
-top: 200px;
+top: 203px;
 
   }
 
@@ -21,6 +21,6 @@ top: 200px;
       top: 213px;
     }
     .popup__input-error:nth-child(3) {
-      top: 150px;
+      top: 152px;
     }
   }
