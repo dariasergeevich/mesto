@@ -20,25 +20,28 @@ const newPopupImagePic = document.querySelector('.popup__img');
 const newPopupTitle = document.querySelector('.popup__title_img');
 const buttonCloseImg = document.querySelector('.popup__close-btn_img');
 const popups = document.querySelectorAll('.popup');
+const buttonElement = document.querySelector('#popup_add_save');
+
 
 //универсальные функции открытия и закрытия попапов
 function openPopup (popup) {
   popup.classList.add('popup_opend');
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape' && popup.classList.contains('popup_opend')) {
-      closePopup(popup);
-    }
-  }); 
-  const buttonElement = popup.querySelector('.popup__save-btn');
-  buttonElement.classList.add('popup__save-btn_disabled'); //то сделать кнопку неактивной
-  buttonElement.setAttribute('disabled', '');
+  document.addEventListener('keydown', closePopupEsc);
 };
+
 
 function closePopup(popup) {
   popup.classList.remove('popup_opend');
+  document.removeEventListener('keydown', closePopupEsc);
 };
 
-
+//функция закрытия попапа на esc
+function closePopupEsc (evt, popup) {
+  if (evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_opend');
+    closePopup(popup);
+  }
+};
 
 //функция автозаполнения полей формы
 function fillPopupInfoInput() {
@@ -71,7 +74,11 @@ formElementPopupInfo.addEventListener('submit', handleProfileFormSubmit);
 
 //открытие и закрытие попапа для добавления карточки
 
-buttonAdd.addEventListener('click', function() {openPopup(popupAdd)});
+buttonAdd.addEventListener('click', function() {
+  buttonElement.classList.add('popup__save-btn_disabled');
+  buttonElement.setAttribute('disabled', '');
+  openPopup(popupAdd)});
+
 popupAddCloseBtn.addEventListener('click', function() {closePopup(popupAdd)});
 
 //массив с новыми карточками
