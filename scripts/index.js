@@ -1,6 +1,12 @@
+import {object, FormValidator} from './FormValidator.js';
+import {Card, elementsContainer} from './Card.js';
+
+//создание экземпляра класса валидации
+let valid = new FormValidator(object);
+valid.enableValidation();
+
 const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__description');
-const elementsContainer = document.querySelector('.elements');
 const element = document.querySelectorAll('.element');
 const popupInfo = document.querySelector('#popup_info');
 const formElementPopupInfo = document.querySelector('#info_container');
@@ -21,7 +27,6 @@ const newPopupTitle = document.querySelector('.popup__title_img');
 const buttonCloseImg = document.querySelector('.popup__close-btn_img');
 const popups = document.querySelectorAll('.popup');
 const buttonElement = document.querySelector('#popup_add_save');
-
 
 //универсальные функции открытия и закрытия попапов
 function openPopup (popup) {
@@ -109,59 +114,24 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   },
 ];
+  
 
+//перебор с созданием экземпляров карточки и отрисовкой
+initialCards.forEach(function (element) {
+  let card = new Card(element.link, element.name, '.template_card');
+  card.renderCard();
+});
 
-//создание разметки карточки для добавления через форму или из массива
-const createCard = (image, name) => {
-  const newCard = cardTemplate.content.querySelector('.element').cloneNode('true');
-  const newCardImage =  newCard.querySelector('.element__image');
-  newCardImage.src = image;
-  newCardImage.alt = name;
-  newCard.querySelector('.element__title').textContent = name;
-
-  //функция лайка
-  newCard.addEventListener('click', function (evt) {
-    if(evt.target.classList.contains('element__like-btn')) {
-    evt.target.classList.toggle('element__like-btn_active');
-    }
-  });
-
-   //удаление карточек
-  const newButtonDelete = newCard.querySelector('.element__delete-btn');
-  newButtonDelete.addEventListener('click', function () {
-    newCard.remove();
-  });
-
-  //открытие попапа с увеличенной картинкой
-  newCardImage.addEventListener('click', function () {
-    newPopupImagePic.setAttribute('src', image);
-    newPopupImagePic.setAttribute('alt', name);
-    newPopupTitle.textContent = name;
-    openPopup(popupImage);
-  });
-
-  return newCard;
-};
-
-//добавление карточки на страницу
-const renderCard = (image, name) => {
-  elementsContainer.prepend(createCard(image, name))
-};
-
+//добавление карточки через форму
 const handleClick = (evt) => {
   evt.preventDefault();
-  renderCard(linkInput.value, titleInput.value);
+  let cardForm = new Card(linkInput.value, titleInput.value, '.template_card');
+  cardForm.renderCard();
   linkInput.value = '';
   titleInput.value = '';
   closePopup(popupAdd);
 }
 popupAddForm.addEventListener('submit', handleClick);
-
-//перебор с функцией добавления карточек из массива на страницу
-initialCards.forEach(function (element) {
-  renderCard(element.link, element.name);
-});
-
 
 //закрытие попапа с увеличенной картинкой
 buttonCloseImg.addEventListener('click', function () {
