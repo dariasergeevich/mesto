@@ -78,7 +78,3 @@ export class FormValidator {
   }); 
   }
 }
-
-
-/*let valid = new FormValidator(object);
-valid.enableValidation();*/
