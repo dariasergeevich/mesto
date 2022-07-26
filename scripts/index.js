@@ -30,7 +30,7 @@ const buttonElement = document.querySelector('#popup_add_save');
 const elementsContainer = document.querySelector('.elements');
 
 //универсальные функции открытия и закрытия попапов
-export const openPopup = (popup) => {
+const openPopup = (popup) => {
   popup.classList.add('popup_opend');
   document.addEventListener('keydown', closePopupEsc);
 };
@@ -74,7 +74,6 @@ popups.forEach(function (element) {
 
 //открытие попапа редактирования информации, отправка данных полей ввода
 buttonEdit.addEventListener('click', function() {
-  const validEditForm = new FormValidator(object, '#editForm');
   fillPopupInfoInput();
   openPopup(popupInfo);
   validEditForm.resetValidation()
@@ -83,9 +82,8 @@ formElementPopupInfo.addEventListener('submit', handleProfileFormSubmit);
 
 //открытие попапа для добавления карточки
 buttonAdd.addEventListener('click', function() {
-  buttonElement.classList.add('popup__save-btn_disabled');
-  buttonElement.setAttribute('disabled', '');
-  const validAddForm = new FormValidator(object, '#addForm');
+  buttonElement.classList.add('popup__save-btn_disabled'); //эта и строчка ниже исправляют баг и согласованы с куратором (он свяжется с ревьювером для подтверждения)
+  buttonElement.setAttribute('disabled', ''); 
   validAddForm.resetValidation()
   openPopup(popupAdd)});
 
@@ -129,18 +127,29 @@ const initialCards = [
 //перебор с созданием экземпляров карточки и отрисовкой
 const renderElements = () => {
 initialCards.forEach(function (element) {
-  const card = new Card(element.link, element.name, '.template_card');
+  const card = new Card(element.link, element.name, '.template_card', handleCardClick);
   elementsContainer.prepend(card.createCard());
 })};
+
+function handleCardClick(name, link) {
+  const newPopupTitle = document.querySelector('.popup__title_img');
+  const newPopupImagePic = document.querySelector('.popup__img');
+  newPopupImagePic.setAttribute('src', link); 
+      newPopupImagePic.setAttribute('alt', name); 
+      newPopupTitle.textContent = name;
+      openPopup(popupImage);
+}
 
 //добавление карточки через форму
 const handleClick = (evt) => {
   evt.preventDefault();
-  let cardForm = new Card(linkInput.value, titleInput.value, '.template_card');
+  let cardForm = new Card(linkInput.value, titleInput.value, '.template_card', handleCardClick);
   elementsContainer.prepend(cardForm.createCard());
   evt.target.reset()
   closePopup(popupAdd);
 }
+
+
 popupAddForm.addEventListener('submit', handleClick);
 
 renderElements();

@@ -1,11 +1,9 @@
-import {openPopup} from './index.js';
-//создание класса карточки 
-
 export class Card { 
-  constructor (image, name, templateSelector){ 
+  constructor (image, name, templateSelector, handleCardClick){ 
   this._image = image; 
   this._name = name; 
-  this._templateSelector = templateSelector; 
+  this._templateSelector = templateSelector;
+  this._handleCardClick = handleCardClick;
   } 
 
   _getTemplate = () => { 
@@ -19,7 +17,12 @@ export class Card {
 
   _setEventListeners = () => {
     const newCard = this._getTemplate();
+
+    //открытие попапа с увеличенной картинкой 
     const newCardImage =  newCard.querySelector('.element__image'); 
+    newCardImage.addEventListener('click', () => { 
+      this._handleCardClick(this._name, this._image);
+    }); 
 
     //функция лайка 
     newCard.addEventListener('click', (evt) => { 
@@ -33,18 +36,7 @@ export class Card {
     newButtonDelete.addEventListener('click', () => { 
     newCard.remove(); 
     }); 
-
-    //открытие попапа с увеличенной картинкой 
   
-  const newPopupImagePic = document.querySelector('.popup__img');
-  const newPopupTitle = document.querySelector('.popup__title_img');
-  const popupImage = document.querySelector('#popup_image');
-    newCardImage.addEventListener('click', () => { 
-      newPopupImagePic.setAttribute('src', this._image); 
-      newPopupImagePic.setAttribute('alt', this._name); 
-      newPopupTitle.textContent = this._name; 
-      openPopup(popupImage); 
-    }); 
 return newCard;
   }; 
 
