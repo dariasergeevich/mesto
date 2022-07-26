@@ -1,9 +1,11 @@
 import {object, FormValidator} from './FormValidator.js';
-import {Card, elementsContainer} from './Card.js';
+import {Card} from './Card.js';
 
 //создание экземпляра класса валидации
-let valid = new FormValidator(object);
-valid.enableValidation();
+const validEditForm = new FormValidator(object, '#editForm');
+const validAddForm = new FormValidator(object, '#addForm');
+validEditForm.enableValidation();
+validAddForm.enableValidation();
 
 const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__description');
@@ -22,14 +24,13 @@ const linkInput = document.querySelector('#popupLink');
 const popupImage = document.querySelector('#popup_image');
 const popupAddForm = document.querySelector('#add_container');
 const cardTemplate = document.querySelector('#element-template');
-const newPopupImagePic = document.querySelector('.popup__img');
-const newPopupTitle = document.querySelector('.popup__title_img');
 const buttonCloseImg = document.querySelector('.popup__close-btn_img');
 const popups = document.querySelectorAll('.popup');
 const buttonElement = document.querySelector('#popup_add_save');
+const elementsContainer = document.querySelector('.elements');
 
 //универсальные функции открытия и закрытия попапов
-function openPopup (popup) {
+export const openPopup = (popup) => {
   popup.classList.add('popup_opend');
   document.addEventListener('keydown', closePopupEsc);
 };
@@ -64,7 +65,6 @@ function handleProfileFormSubmit(evt) {
 
 
 //закрытие кликом на оверлей
-
 popups.forEach(function (element) {
   element.addEventListener('click', function(evt) {
     closePopup(evt.target);
@@ -72,19 +72,29 @@ popups.forEach(function (element) {
 });
 
 
-//открытие и закрытие попапа редактирования информации, отправка данных полей ввода
-buttonEdit.addEventListener('click', function() {fillPopupInfoInput(); openPopup(popupInfo)});
-buttonClosePopupInfo.addEventListener('click', function() {closePopup(popupInfo)});
+//открытие попапа редактирования информации, отправка данных полей ввода
+buttonEdit.addEventListener('click', function() {
+  const validEditForm = new FormValidator(object, '#editForm');
+  fillPopupInfoInput();
+  openPopup(popupInfo);
+  validEditForm.resetValidation()
+});
 formElementPopupInfo.addEventListener('submit', handleProfileFormSubmit);
 
-//открытие и закрытие попапа для добавления карточки
-
+//открытие попапа для добавления карточки
 buttonAdd.addEventListener('click', function() {
   buttonElement.classList.add('popup__save-btn_disabled');
   buttonElement.setAttribute('disabled', '');
+  const validAddForm = new FormValidator(object, '#addForm');
+  validAddForm.resetValidation()
   openPopup(popupAdd)});
 
-popupAddCloseBtn.addEventListener('click', function() {closePopup(popupAdd)});
+//функция со слушателем для кнопок-крестиков всех попапов
+const closeButtons = document.querySelectorAll('.popup__close-btn');
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
+});
 
 //массив с новыми карточками
 
@@ -114,26 +124,23 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   },
 ];
-  
+
 
 //перебор с созданием экземпляров карточки и отрисовкой
+const renderElements = () => {
 initialCards.forEach(function (element) {
-  let card = new Card(element.link, element.name, '.template_card');
-  card.renderCard();
-});
+  const card = new Card(element.link, element.name, '.template_card');
+  elementsContainer.prepend(card.createCard());
+})};
 
 //добавление карточки через форму
 const handleClick = (evt) => {
   evt.preventDefault();
   let cardForm = new Card(linkInput.value, titleInput.value, '.template_card');
-  cardForm.renderCard();
-  linkInput.value = '';
-  titleInput.value = '';
+  elementsContainer.prepend(cardForm.createCard());
+  evt.target.reset()
   closePopup(popupAdd);
 }
 popupAddForm.addEventListener('submit', handleClick);
 
-//закрытие попапа с увеличенной картинкой
-buttonCloseImg.addEventListener('click', function () {
-  closePopup(popupImage);
-});
+renderElements();
