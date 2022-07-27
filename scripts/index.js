@@ -82,8 +82,6 @@ formElementPopupInfo.addEventListener('submit', handleProfileFormSubmit);
 
 //открытие попапа для добавления карточки
 buttonAdd.addEventListener('click', function() {
-  buttonElement.classList.add('popup__save-btn_disabled'); //эта и строчка ниже исправляют баг и согласованы с куратором (он свяжется с ревьювером для подтверждения)
-  buttonElement.setAttribute('disabled', ''); 
   validAddForm.resetValidation()
   openPopup(popupAdd)});
 
