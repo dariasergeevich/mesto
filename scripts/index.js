@@ -1,40 +1,35 @@
 import {object, FormValidator} from './FormValidator.js';
 import {Card} from './Card.js';
 
-//создание экземпляра класса валидации
-const validEditForm = new FormValidator(object, '#editForm');
-const validAddForm = new FormValidator(object, '#addForm');
-validEditForm.enableValidation();
-validAddForm.enableValidation();
-
 const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__description');
-const element = document.querySelectorAll('.element');
 const popupInfo = document.querySelector('#popup_info');
 const formElementPopupInfo = document.querySelector('#info_container');
 const buttonEdit = document.querySelector('.profile__edit-btn');
 const nameInput = document.getElementById('popupName');
 const jobInput = document.getElementById('popupInfo');
-const buttonClosePopupInfo = document.querySelector('#popup_info_close');
 const buttonAdd = document.querySelector('.profile__add-btn');
 const popupAdd = document.querySelector('#popup_add');
-const popupAddCloseBtn = document.querySelector('#popup_add_close');
 const titleInput = document.querySelector('#popupTitle');
 const linkInput = document.querySelector('#popupLink');
 const popupImage = document.querySelector('#popup_image');
 const popupAddForm = document.querySelector('#add_container');
-const cardTemplate = document.querySelector('#element-template');
-const buttonCloseImg = document.querySelector('.popup__close-btn_img');
 const popups = document.querySelectorAll('.popup');
-const buttonElement = document.querySelector('#popup_add_save');
 const elementsContainer = document.querySelector('.elements');
+const newPopupTitle = document.querySelector('.popup__title_img');
+const newPopupImagePic = document.querySelector('.popup__img');
+
+  //создание экземпляра класса валидации
+const validEditForm = new FormValidator(object, '#editForm');
+const validAddForm = new FormValidator(object, '#addForm');
+validEditForm.enableValidation();
+validAddForm.enableValidation();
 
 //универсальные функции открытия и закрытия попапов
 const openPopup = (popup) => {
   popup.classList.add('popup_opend');
   document.addEventListener('keydown', closePopupEsc);
 };
-
 
 function closePopup(popup) {
   popup.classList.remove('popup_opend');
@@ -81,7 +76,7 @@ buttonEdit.addEventListener('click', function() {
 formElementPopupInfo.addEventListener('submit', handleProfileFormSubmit);
 
 //открытие попапа для добавления карточки
-buttonAdd.addEventListener('click', function() {
+buttonAdd.addEventListener('click', function() { 
   validAddForm.resetValidation()
   openPopup(popupAdd)});
 
@@ -121,17 +116,20 @@ const initialCards = [
   },
 ];
 
+//создание функции генерации карточки
+function createCard(link,name) {
+  const card = new Card(link, name, '.template_card', handleCardClick);
+  const cardElement = card.createCard();
+  return cardElement
+}
 
 //перебор с созданием экземпляров карточки и отрисовкой
 const renderElements = () => {
 initialCards.forEach(function (element) {
-  const card = new Card(element.link, element.name, '.template_card', handleCardClick);
-  elementsContainer.prepend(card.createCard());
+  elementsContainer.prepend(createCard(element.link, element.name));
 })};
 
 function handleCardClick(name, link) {
-  const newPopupTitle = document.querySelector('.popup__title_img');
-  const newPopupImagePic = document.querySelector('.popup__img');
   newPopupImagePic.setAttribute('src', link); 
       newPopupImagePic.setAttribute('alt', name); 
       newPopupTitle.textContent = name;
@@ -141,8 +139,7 @@ function handleCardClick(name, link) {
 //добавление карточки через форму
 const handleClick = (evt) => {
   evt.preventDefault();
-  let cardForm = new Card(linkInput.value, titleInput.value, '.template_card', handleCardClick);
-  elementsContainer.prepend(cardForm.createCard());
+  elementsContainer.prepend(createCard(linkInput.value, titleInput.value));
   evt.target.reset()
   closePopup(popupAdd);
 }
