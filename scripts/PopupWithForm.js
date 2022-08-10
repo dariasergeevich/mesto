@@ -8,9 +8,8 @@ constructor(popupSelector, handleProfileFormSubmit) {
 
 }
 _getInputValues = () => {
-const inputListValue = this._popup.querySelectorAll('.popup__input').value;
-console.log (inputListValue)
-return inputListValue
+const inputList = this._popup.querySelectorAll('.popup__input');
+return inputList
 }
 
 setEventListeners() {
@@ -21,6 +20,5 @@ setEventListeners() {
 close = () => {
   super.close();
   this._popup.querySelector('.popup__form').reset();
-  console.log('csd')
 };
 }

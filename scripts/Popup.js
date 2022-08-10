@@ -8,10 +8,13 @@ this.popup = document.querySelector(this._popupSelector);
   open() {
     document.querySelector(this._popupSelector).classList.add('popup_opend')
   }
-  close = () => {
+  close ()  {
     document.querySelector(this._popupSelector).classList.remove('popup_opend');
   };
-
+  
+  _closeOverlay(popup) {
+    popup.classList.remove('popup_opend');
+  }
   _handleEscClose = (evt) => {
     if (evt.key === 'Escape') {
       this.close();
@@ -25,9 +28,10 @@ this.popup = document.querySelector(this._popupSelector);
     });
 
     //закрытие кликом на оверлей
-      /*this.popup.addEventListener('click', () => {
-        this.close()
-      });*/
+      this.popup.addEventListener('click', (evt) => {
+        this._closeOverlay(evt.target);
+      });
+
 
       //закрытие нажатием на esc
       document.addEventListener('keydown', this._handleEscClose);

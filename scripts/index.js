@@ -5,14 +5,8 @@ import { PopupWithImage } from './PopupWithImage.js';
 import { PopupWithForm } from './PopupWithForm.js';
 import { UserInfo } from './UserInfo.js';
 
-const profileName = document.querySelector('.profile__name');
-const profileInfo = document.querySelector('.profile__description');
 const buttonEdit = document.querySelector('.profile__edit-btn');
-const nameInput = document.getElementById('popupName');
-const jobInput = document.getElementById('popupInfo');
 const buttonAdd = document.querySelector('.profile__add-btn');
-const titleInput = document.querySelector('#popupTitle');
-const linkInput = document.querySelector('#popupLink');
 const elementsContainer = document.querySelector('.elements');
 const buttonElement = document.querySelector('.popup__save-btn')
 
@@ -25,10 +19,8 @@ validAddForm.enableValidation();
 //сабмит для добавления карточки
 const handleClick = (evt) => {
   evt.preventDefault();
-  const card = new Card(linkInput.value, titleInput.value, '.template_card', handleCardClick);
-  elementsContainer.prepend(card.createCard(linkInput.value, titleInput.value));
-  //evt.target.reset()
-  //closePopup(popupAdd);
+  const card = new Card(inputLink.value, inputTitle.value, '.template_card', handleCardClick);
+  elementsContainer.prepend(card.createCard(inputLink.value, inputTitle.value));
   popupAdd.close()
 };
 
@@ -38,29 +30,23 @@ const popupInfo = new PopupWithForm('#popup_info', handleProfileFormSubmit);
 popupAdd.setEventListeners();
 popupInfo.setEventListeners();
 
+const inputAddList = popupAdd._getInputValues();
+const [inputTitle, inputLink] = inputAddList;
+
 const userInfo = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__description'});
-//userInfo.setUserInfo();
 
-
-
-//функция автозаполнения полей формы
-function fillPopupInfoInput() {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileInfo.textContent;
-}
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы, логика отправки будет определена позже
   userInfo.setUserInfo();
-  //closePopup(popupInfo);
   popupInfo.close();
 }
 
 
 //открытие попапа редактирования информации, отправка данных полей ввода
 buttonEdit.addEventListener('click', function() {
-  fillPopupInfoInput();
-  //openPopup(popupInfo);
+ // fillPopupInfoInput();
+ userInfo.fillPopupInfoInput();
   popupInfo.open()
   validEditForm.resetValidation()
 });
@@ -71,7 +57,6 @@ buttonAdd.addEventListener('click', function() {
   buttonElement.classList.add('popup__save-btn_disabled'); 
   buttonElement.setAttribute('disabled', '');
   validAddForm.resetValidation()
-  //openPopup(popupAdd)
   popupAdd.open()
 });
 
