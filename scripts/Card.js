@@ -21,7 +21,7 @@ export class Card {
     //открытие попапа с увеличенной картинкой 
     const newCardImage =  newCard.querySelector('.element__image'); 
     newCardImage.addEventListener('click', () => { 
-      this._handleCardClick(this._name, this._image);
+    this._handleCardClick();
     }); 
 
     //функция лайка 
