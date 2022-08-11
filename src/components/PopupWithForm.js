@@ -7,7 +7,7 @@ constructor(popupSelector, handleProfileFormSubmit) {
   this._popup = document.querySelector(popupSelector);
 
 }
-_getInputValues = () => {
+getInputValues = () => {
 const inputList = this._popup.querySelectorAll('.popup__input');
 return inputList
 }
@@ -18,7 +18,7 @@ setEventListeners() {
 }
 
 close = () => {
-  super.close();
+  super._close();
   this._popup.querySelector('.popup__form').reset();
 };
 }

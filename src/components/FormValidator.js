@@ -57,6 +57,7 @@ export class FormValidator {
       this._buttonElement.removeAttribute('disabled'); //иначе кнопка активна, нет модификатора неактивности (что прописать в css?)
     }
   };
+
   _setEventListeners = () => {
     this._toggleButtonState();
   

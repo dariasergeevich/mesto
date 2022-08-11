@@ -5,7 +5,7 @@ import {Section} from '././components/Section.js';
 import { PopupWithImage } from '././components/PopupWithImage.js';
 import { PopupWithForm } from '././components/PopupWithForm.js';
 import { UserInfo } from '././components/UserInfo.js';
-import {buttonEdit, buttonAdd, elementsContainer, buttonElement} from './utils/constants.js'
+import {buttonEdit, buttonAdd, elementsContainer, nameInput, jobInput, profileName, profileInfo, initialCards} from './utils/constants.js'
 
   //создание экземпляра класса валидации
 const validEditForm = new FormValidator(object, '#editForm');
@@ -13,21 +13,28 @@ const validAddForm = new FormValidator(object, '#addForm');
 validEditForm.enableValidation();
 validAddForm.enableValidation();
 
+//функция создания карточки
+const createCard = (link, name, templateSelector, func) => {
+  const card = new Card(link, name, templateSelector, func);
+  return card
+}
+
 //сабмит для добавления карточки
-const handleClick = (evt) => {
+const submitCardForm = (evt) => {
   evt.preventDefault();
-  const card = new Card(inputLink.value, inputTitle.value, '.template_card', handleCardClick);
+  const card = createCard(inputLink.value, inputTitle.value, '.template_card', handleCardClick);
   elementsContainer.prepend(card.createCard(inputLink.value, inputTitle.value));
   popupAdd.close()
 };
 
-const popupAdd = new PopupWithForm('#popup_add', handleClick);
+
+const popupAdd = new PopupWithForm('#popup_add', submitCardForm);
 const popupInfo = new PopupWithForm('#popup_info', handleProfileFormSubmit);
 
 popupAdd.setEventListeners();
 popupInfo.setEventListeners();
 
-const inputAddList = popupAdd._getInputValues();
+const inputAddList = popupAdd.getInputValues();
 const [inputTitle, inputLink] = inputAddList;
 
 const userInfo = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__description'});
@@ -35,15 +42,22 @@ const userInfo = new UserInfo({nameSelector: '.profile__name', infoSelector: '.p
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы, логика отправки будет определена позже
-  userInfo.setUserInfo();
+  const data = userInfo.getUserInfo();
+  const {name, info} = data;
+  userInfo.setUserInfo(name, info)
   popupInfo.close();
 }
+
+//функция автозаполнения полей формы (привязана к определенной форме, для класса не пригодна)
+const fillPopupInfoInput = () => {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileInfo.textContent;
+};
 
 
 //открытие попапа редактирования информации, отправка данных полей ввода
 buttonEdit.addEventListener('click', function() {
- // fillPopupInfoInput();
- userInfo.fillPopupInfoInput();
+ fillPopupInfoInput();
   popupInfo.open()
   validEditForm.resetValidation()
 });
@@ -51,46 +65,15 @@ buttonEdit.addEventListener('click', function() {
 
 //открытие попапа для добавления карточки
 buttonAdd.addEventListener('click', function() { 
-  buttonElement.classList.add('popup__save-btn_disabled'); 
-  buttonElement.setAttribute('disabled', '');
   validAddForm.resetValidation()
   popupAdd.open()
 });
 
 
-//массив с новыми карточками
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  },
-];
-
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item.link, item.name, '.template_card', handleCardClick);
+    const card = createCard(item.link, item.name, '.template_card', handleCardClick);
     const cardElement = card.createCard();
     cardList.addItem(cardElement);
   }

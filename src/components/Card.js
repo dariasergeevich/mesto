@@ -15,8 +15,20 @@ export class Card {
     return newCard;
   }
 
+  //функция лайка 
+  like = (evt) => {
+    if(evt.target.classList.contains('element__like-btn')) { 
+      evt.target.classList.toggle('element__like-btn_active');
+      }
+  }
+
+  delete = () => {
+    this._element.remove();
+  }
+
   _setEventListeners = () => {
-    const newCard = this._getTemplate();
+    this._element = this._getTemplate();
+    const newCard = this._element;
 
     //открытие попапа с увеличенной картинкой 
     const newCardImage =  newCard.querySelector('.element__image'); 
@@ -25,17 +37,11 @@ export class Card {
     }); 
 
     //функция лайка 
-    newCard.addEventListener('click', (evt) => { 
-      if(evt.target.classList.contains('element__like-btn')) { 
-      evt.target.classList.toggle('element__like-btn_active');
-      }
-    }); 
+    newCard.addEventListener('click', this.like); 
 
-     //удаление карточек 
+     //удаление карточек
     const newButtonDelete = newCard.querySelector('.element__delete-btn'); 
-    newButtonDelete.addEventListener('click', () => { 
-    newCard.remove(); 
-    }); 
+    newButtonDelete.addEventListener('click', this.delete); 
   
 return newCard;
   }; 

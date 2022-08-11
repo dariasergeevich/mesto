@@ -7,6 +7,7 @@ constructor(items, popupSelector) {
   this._popupImage = document.querySelector('.popup__img');
   this._popupTitle = document.querySelector('.popup__title_img');
   this.open = this.open.bind(this);
+  this._popup = document.querySelector(this._popupSelector);
 }
 open = (name, image) => {
   this._popupImage.src = image;

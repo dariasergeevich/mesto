@@ -4,7 +4,7 @@
   "description": "Проект сделан на основе макета Figma для устройств с разрешениями до 320px. Проект представляет собой аккаунт пользователя с возможностью редактирования информации с помощью формы.",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && webpack --mode production",
+    "build": "rimraf dist && webpack --mode production",
     "dev": "webpack serve"
   },
   "repository": {
