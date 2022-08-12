@@ -3,20 +3,19 @@ export class UserInfo{
 constructor({nameSelector, infoSelector}) {
 this._nameSelector = nameSelector;
 this._infoSelector = infoSelector;
+this._userName = document.querySelector(this._nameSelector);
+this._userJob = document.querySelector(this._infoSelector);
 this.setUserInfo = this.setUserInfo.bind(this);
 }
 getUserInfo() {
-  const name  = document.querySelector(this._nameSelector);
-  const info = document.querySelector(this._infoSelector);
-  return {name, info}
+  return {
+    userName: this._userName.textContent,
+    userJob: this._userJob.textContent
+  }
 }
-setUserInfo = () => {
-  const data = this.getUserInfo();
-  const {name, info} = data;
-  const nameValue = document.querySelector('#popupName').value;
-  const infoValue = document.querySelector('#popupInfo').value;
- name.textContent = nameValue;
-info.textContent = infoValue;
+setUserInfo = (name, job) => {
+  this._userName.textContent = name;
+  this._userJob.textContent = job;
 
 }
 }

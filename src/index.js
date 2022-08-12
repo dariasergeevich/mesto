@@ -16,14 +16,15 @@ validAddForm.enableValidation();
 //функция создания карточки
 const createCard = (link, name, templateSelector, func) => {
   const card = new Card(link, name, templateSelector, func);
-  return card
+  const cardElement = card.createCard()
+  return cardElement
 }
 
 //сабмит для добавления карточки
 const submitCardForm = (evt) => {
   evt.preventDefault();
   const card = createCard(inputLink.value, inputTitle.value, '.template_card', handleCardClick);
-  elementsContainer.prepend(card.createCard(inputLink.value, inputTitle.value));
+  elementsContainer.prepend(card);
   popupAdd.close()
 };
 
@@ -42,16 +43,17 @@ const userInfo = new UserInfo({nameSelector: '.profile__name', infoSelector: '.p
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы, логика отправки будет определена позже
-  const data = userInfo.getUserInfo();
-  const {name, info} = data;
-  userInfo.setUserInfo(name, info)
+
+  userInfo.setUserInfo(nameInput.value, jobInput.value)
   popupInfo.close();
 }
 
 //функция автозаполнения полей формы (привязана к определенной форме, для класса не пригодна)
 const fillPopupInfoInput = () => {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileInfo.textContent;
+  const data = userInfo.getUserInfo();
+  const {userName, userJob} = data;
+  nameInput.value = userName;
+  jobInput.value = userJob;
 };
 
 
@@ -74,8 +76,7 @@ const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
     const card = createCard(item.link, item.name, '.template_card', handleCardClick);
-    const cardElement = card.createCard();
-    cardList.addItem(cardElement);
+    cardList.addItem(card);
   }
 }, '.elements');
 
