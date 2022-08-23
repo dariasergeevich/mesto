@@ -12,4 +12,4 @@
 * JavaScript
 * Работа с DOM
 
-* [Ссылка на проект](https://dariasergeevich.github.io/mesto/)
+* [Ссылка на проект](https://dariasergeevich.github.io/mesto)

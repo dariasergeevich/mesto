@@ -5,7 +5,7 @@ import {Section} from '././components/Section.js';
 import { PopupWithImage } from '././components/PopupWithImage.js';
 import { PopupWithForm } from '././components/PopupWithForm.js';
 import { UserInfo } from '././components/UserInfo.js';
-import {buttonEdit, buttonAdd, elementsContainer, nameInput, jobInput, profileName, profileInfo, initialCards} from './utils/constants.js'
+import {buttonEdit, buttonAdd, elementsContainer, nameInput, jobInput, profileName, profileInfo, profileImage, initialCards} from './utils/constants.js'
 
   //создание экземпляра класса валидации
 const validEditForm = new FormValidator(object, '#editForm');
@@ -38,13 +38,47 @@ popupInfo.setEventListeners();
 const inputAddList = popupAdd.getInputValues();
 const [inputTitle, inputLink] = inputAddList;
 
+//запрос данных с сервера (личная информация) и размещение их на странице
+fetch('https://nomoreparties.co/v1/cohort-49/users/me', {
+  headers: {
+    authorization: '94f0a02f-3d14-4f54-8e7e-5a6cac51adb8'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    profileName.textContent = result.name;
+    profileInfo.textContent = result.about;
+    profileImage.src = result.avatar;
+    profileImage.alt = result.name;
+    ;
+  })
+
+
 const userInfo = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__description'});
+
+
 
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы, логика отправки будет определена позже
-
-  userInfo.setUserInfo(nameInput.value, jobInput.value)
+  fetch('https://nomoreparties.co/v1/cohort-49/users/me', {
+    method: 'PATCH',
+    headers: {
+      authorization: '94f0a02f-3d14-4f54-8e7e-5a6cac51adb8',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: nameInput.value,
+      about: jobInput.value
+    })
+  })
+  .then(() =>{
+    setTimeout(()=>{
+      location.reload()
+    }), 1000
+  } );
+  
+  //userInfo.setUserInfo(nameInput.value, jobInput.value)
   popupInfo.close();
 }
 
@@ -71,16 +105,27 @@ buttonAdd.addEventListener('click', function() {
   popupAdd.open()
 });
 
-
-const cardList = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = createCard(item.link, item.name, '.template_card', handleCardClick);
-    cardList.addItem(card);
+//запрос карточек с сервера
+const renderCards = () => { fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards', {
+  headers: {
+    authorization: '94f0a02f-3d14-4f54-8e7e-5a6cac51adb8'
   }
-}, '.elements');
+})
+  .then(res => res.json())
+  .then((result) => {
+      const cardList = new Section({
+        items: result,
+        renderer: (item) => {
+          const card = createCard(item.link, item.name, '.template_card', handleCardClick);
+          cardList.addItem(card);
+        }
+      }, '.elements')
+      cardList.renderItems();
+    });
+}
 
-cardList.renderItems();
+renderCards()
+
 
 const popupImage = new PopupWithImage(initialCards, '#popup_image');
 popupImage.setEventListeners()

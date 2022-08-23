@@ -18,4 +18,5 @@ setUserInfo = (name, job) => {
   this._userJob.textContent = job;
 
 }
+
 }

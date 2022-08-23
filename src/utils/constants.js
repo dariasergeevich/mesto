@@ -5,6 +5,7 @@ export const nameInput = document.getElementById('popupName');
 export const jobInput = document.getElementById('popupInfo');
 export const profileName = document.querySelector('.profile__name');
 export const profileInfo = document.querySelector('.profile__description');
+export const profileImage = document.querySelector('.profile__avatar');
 export const initialCards = [
     {
       name: 'Архыз',
