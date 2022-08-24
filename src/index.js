@@ -23,10 +23,26 @@ const createCard = (link, name, templateSelector, func) => {
 //сабмит для добавления карточки
 const submitCardForm = (evt) => {
   evt.preventDefault();
-  const card = createCard(inputLink.value, inputTitle.value, '.template_card', handleCardClick);
-  elementsContainer.prepend(card);
+  fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards', {
+    method: 'POST',
+    headers: {
+      authorization: '94f0a02f-3d14-4f54-8e7e-5a6cac51adb8',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: inputTitle.value,
+      link: inputLink.value
+    })
+  })
+  .then((res) => {console.log(res)})
+  .then(() =>{
+    setTimeout(()=>{
+      location.reload()
+    }), 1000
+  } );
   popupAdd.close()
 };
+
 
 
 const popupAdd = new PopupWithForm('#popup_add', submitCardForm);
@@ -116,7 +132,7 @@ const renderCards = () => { fetch('https://mesto.nomoreparties.co/v1/cohort-49/c
       const cardList = new Section({
         items: result,
         renderer: (item) => {
-          const card = createCard(item.link, item.name, '.template_card', handleCardClick);
+          const card = createCard(item.link, item.name, item.likes.length, '.template_card', handleCardClick);
           cardList.addItem(card);
         }
       }, '.elements')

@@ -14,9 +14,12 @@
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__delete-btn/element__delete-btn.css);
+@import url(../blocks/element/__delete-btn/_hidden/element__delete-btn_hidden.css);
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__flex/element__flex.css);
 @import url(../blocks/element/__title/element__title.css);
+@import url(../blocks/element/__column/element__column.css);
+@import url(../blocks/element/__likes-count/element__likes-count.css);
 @import url(../blocks/element/__like-btn/element__like-btn.css);
 @import url(../blocks/element/__like-btn/_active/element__like-btn_active.css);
 @import url(../blocks/footer/footer.css);
@@ -26,16 +29,20 @@
 @import url(../blocks/popup/_opend/popup_opend.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__container/_img/popup__container_img.css);
+@import url(../blocks/popup/__container/_delete/popup__container_delete.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__title/_img/popup__title_img.css);
+@import url(../blocks/popup/__title/_delete/popup__title_delete.css);
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input/_type_error/popup__input_type_error.css);
 @import url(../blocks/popup/__input-error/popup__input-error.css);
 @import url(../blocks/popup/__input-error/_active/popup__input-error_active.css);
 @import url(../blocks/popup/__save-btn/popup__save-btn.css);
 @import url(../blocks/popup/__save-btn/_disabled/popup__save-btn_disabled.css);
+@import url(../blocks/popup/__save-btn/_delete/popup__save-delete.css);
 @import url(../blocks/popup/__close-btn/popup__close-btn.css);
 @import url(../blocks/popup/__close-btn/_img/popup__close-btn_img.css);
+@import url(../blocks/popup/__close-btn/_delete/popup__close-btn_delete.css);
 @import url(../blocks/popup/__img/popup__img.css);
 

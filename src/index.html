@@ -68,7 +68,14 @@
       <p class="popup__title popup__title_img"></p>
   </div>
 </div>
+<div class="popup popup_delete">
+  <div class="popup__container popup__container_delete">
+    <button class="popup__close-btn popup__close-btn_delete" type="button"></button>
+    <h2 class="popup__title popup__title_delete">Вы уверены?</h2>
+    <button class="popup__save-btn popup__save-btn_delete" type="submit">Да</button>
 </div>
+</div>
+
 
   <template class='template_card' id="element-template">
     <article class="element">
@@ -76,7 +83,10 @@
       <img class="element__image">
       <div class="element__flex">
         <h2 class="element__title"></h2>
-        <button class="element__like-btn" type="button"></button>
+        <div class="element__column">
+          <button class="element__like-btn" type="button"></button>
+        <p class="element__likes-count"></p>
+        </div>
       </div>
     </article>
   </template>

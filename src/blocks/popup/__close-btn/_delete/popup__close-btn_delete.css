@@ -1,0 +1,12 @@
+.popup__close-btn_delete {
+  
+  left: calc(430px+8px);
+  bottom: 189px;
+
+  }
+
+  @media (max-width: 768px) {
+    .popup__close-btn_delete {
+      left: 262px;
+    }
+  }

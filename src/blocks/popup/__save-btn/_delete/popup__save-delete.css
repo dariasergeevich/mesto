@@ -1,0 +1,12 @@
+.popup__save-btn_delete {
+  margin-bottom: 0px;
+  }
+
+
+  @media (max-width: 768px) {
+    .popup__save-btn_delete {
+      width: 238px;
+      margin: auto;
+      margin-bottom: 25px;
+    }
+  }
