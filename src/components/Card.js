@@ -1,11 +1,14 @@
 import { Popup } from "./Popup.js";
+import { PopupWithImage } from "./PopupWithImage.js";
+import { Api } from "./Api.js";
 export class Card { 
-  constructor (image, name, like, templateSelector, handleCardClick){ 
+  constructor (id, owner, image, name, like, templateSelector){ 
   this._image = image; 
   this._name = name; 
   this._like = like;
   this._templateSelector = templateSelector;
-  this._handleCardClick = handleCardClick;
+  this._id = id;
+  this._owner = owner;
   } 
 
   _getTemplate = () => { 
@@ -17,68 +20,153 @@ export class Card {
     return newCard;
   }
 
-  //функция лайка 
-  like = (evt) => {
-    if(evt.target.classList.contains('element__like-btn')) { 
-      evt.target.classList.toggle('element__like-btn_active');
-
-/*if(evt.target.classList.contains('element__like-btn_active')) { //если кнопка лайка активна
-
-fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards', { //найти способ дополнить массив на сервере
-    method: 'PATCH',
-    headers: {
-      authorization: '94f0a02f-3d14-4f54-8e7e-5a6cac51adb8',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      likes: [1]
-    })
-  })
-}*/
-      }
-      
-  }
-
   delete = () => {
     this._element.remove();
   }
 
-  _setEventListeners = () => {
+  //постановка лайка (добавление в массив)
+   putLike = (card) => {
+      const api = new Api;
+      api.putLike(card)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+
+    const likeButton = card.querySelector('.element__like-btn')
+    likeButton.classList.add('element__like-btn_active')
+  }
+
+  /*likeCheck = (card) => {
+    const api = new Api;
+    api.getCardInfo(card)
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then(res => {if (res._id === 'dfafee16dcd4a54bbbf83cea')
+  {
+    const likeButton = card.querySelector('.element__like-btn')
+    likeButton.classList.add('.element__like-btn_active')
+  }})
+  }*/
+  
+  //удаление лайка (удаление из массива)
+  deleteLike = (card) => {
+      const api = new Api;
+      api.deleteLike(card)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      
+    const likeButton = card.querySelector('.element__like-btn')
+    likeButton.classList.remove('element__like-btn_active')
+  }
+
+   //показать значок корзины
+   showDeleteIcon = () => {
     this._element = this._getTemplate();
     const newCard = this._element;
-
-    //открытие попапа с увеличенной картинкой 
-    const newCardImage =  newCard.querySelector('.element__image'); 
-    newCardImage.addEventListener('click', () => { 
-    this._handleCardClick();
-    }); 
-
-    //функция лайка 
-    newCard.addEventListener('click', this.like); 
-
-    //отображение значка корзины
-  fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards', {
-  headers: {
-    authorization: '94f0a02f-3d14-4f54-8e7e-5a6cac51adb8'
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-    result.forEach((item)=>{
-      console.log(item)
-      if (!item.owner.name === 'Jacques Cousteau') {
+  const newButtonDelete = newCard.querySelector('.element__delete-btn');
+console.log(newCard)
+  const api = new Api;
+  api.getInitialCards()
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .then(res => {
+    res.forEach(card => {
+      if (!card.owner._id === 'dfafee16dcd4a54bbbf83cea') {
         newButtonDelete.classList.add('element__delete-btn_hidden')
       }
     });
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  }
+
+
+  //подтверждение удаления
+  deleteConfirm = (card) => {
+    const confirmButton = document.querySelector('.popup__save-btn_delete');
+    const popupDelete = new Popup('.popup_delete');
+  confirmButton.addEventListener('click', () => {
+      const api = new Api;
+      api.deleteCard(card)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+
+      this.delete()
+      popupDelete._close()
+  })
+  }
+
+
+  _setEventListeners = () => {
+    this._element = this._getTemplate();
+    const newCard = this._element;
+    this.showDeleteIcon()
+    //открытие попапа с увеличенной картинкой 
+    const newCardImage =  newCard.querySelector('.element__image'); 
+    newCardImage.addEventListener('click', () => {
+const api = new Api;
+api.getInitialCards()
+.then(res => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+})
+.then(res => {
+  const popupImage = new PopupWithImage(res, '#popup_image');
+popupImage.setEventListeners();
+popupImage.open(this._name, this._image)
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+  }); 
+
+    //функция лайка 
+    newCard.addEventListener('click', () => {
+     this.putLike(newCard);
+     this.deleteLike(newCard);
+    }
+    ); 
+
+//удаление карточек
+   const popupDelete = new Popup('.popup_delete');
+   const newButtonDelete = newCard.querySelector('.element__delete-btn')
+   newButtonDelete.addEventListener('click', () => {
+    popupDelete.open();
+    this.deleteConfirm(newCard);
   });
 
-   //удаление карточек
-   const newButtonDelete = newCard.querySelector('.element__delete-btn');
-   const popupDelete = new Popup('.popup_delete');
-   newButtonDelete.addEventListener('click', () => popupDelete.open()); 
    popupDelete.setEventListeners();
-
-   
   
 return newCard;
   }; 
@@ -94,6 +182,8 @@ return newCard;
       newCardLike.textContent = ''
     }
     newCard.querySelector('.element__title').textContent = this._name;
+    newCard.id = this._id;
+    newCard.setAttribute('owner', this._owner);
 
     return newCard;
  }

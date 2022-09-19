@@ -1,0 +1,13 @@
+.popup__close-btn_avatar {
+  left: 432px;
+  bottom: 285px;
+  }
+
+  @media (max-width: 768px) {
+    .popup__close-btn_avatar {
+      left: 262px;
+      right: 0;
+      bottom: 290px;
+    }
+  }
+

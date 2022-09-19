@@ -1,0 +1,14 @@
+.profile__edit-icon {
+  width: 26px;
+  height: 26px;
+  margin-top: 47px;
+  margin-left: 47px;
+  background-image: url(../../../images/edit.png);
+  background-repeat: no-repeat;
+  }
+
+  @media (max-width: 768px) {
+    .profile__avatar {
+      margin: auto;
+    }
+  }
