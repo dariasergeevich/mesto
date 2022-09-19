@@ -81,7 +81,6 @@ export class Card {
     this._element = this._getTemplate();
     const newCard = this._element;
   const newButtonDelete = newCard.querySelector('.element__delete-btn');
-console.log(newCard)
   const api = new Api;
   api.getInitialCards()
   .then(res => {
